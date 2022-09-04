@@ -20,6 +20,8 @@ function movieSelected(t) {
   );
 }
 
+fucntion asdasdsa
+
 function getMovie() {
   let t = sessionStorage.getItem("movieID");
   axios

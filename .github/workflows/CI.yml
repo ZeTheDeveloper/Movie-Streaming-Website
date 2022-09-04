@@ -1,0 +1,44 @@
+name: CI for Movie Streaming 
+
+on: [pull_request] #during pull_request events
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # build on ubuntu latest, ubuntu kernel good enough for building different development project, therefore always used as base OS
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v2
+        
+    - name: Run Code Climate
+      uses: erzz/codeclimate-standalone@v0.0.4
+      with:
+        info_threshold: 10
+        minor_threshold: 5
+        major_threshold: 1
+        critical_threshold: 0
+        blocker_threshold: 0
+
+    - name: HTML5Validator
+      uses: Cyb3r-Jak3/html5validator-action@v7.1.1
+      with:
+        root: /
+        config: ./config/HTML5_Validator.yaml
+        blacklist: invalid
+        # log_level: debug
+        
+    - name: Send mail
+      if: ${{ failure() }}
+      uses: dawidd6/action-send-mail@v3.6.1
+      with:
+        # mail server settings
+        server_address: smtp.gmail.com
+        server_port: 465
+        # email subject
+        subject: ${{ github.job }} job of ${{ github.repository }} has fail
+        # email body as text
+        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+        # comma-separated string, send email to
+        to: williamthetester0.1@gmail.com
+        # from email name
+        from: williamTheTester

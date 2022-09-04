@@ -9,6 +9,7 @@ let questions = [
       "Horror",
       "Comedies",
       "Documentary"
+      "Sci-Fi"
     ]
   },
     {
@@ -30,7 +31,9 @@ let questions = [
       "Hindi",
       "English",
       "Tamil",
-      "Japanese"
+      "Japanese",
+      "Korean",
+      "Chinese"
     ]
   },
     ,
